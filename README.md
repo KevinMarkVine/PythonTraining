@@ -14,6 +14,14 @@
 	2. acaii码不能表示其他字符，unicode可以，但是unicode定长，容易造成存储空间浪费，才有了变长的UTF-8
 	3. ord（）用于获取字符的整数，chr（）把整数表示为编码
     4. len（）计算str的字符数，len（b‘’）计算字节数
+    5. 使用内建的isinstance函数可以判断一个变量是不是字符串：
+        >>> x = 'abc'
+        >>> y = 123
+        >>> isinstance(x, str)
+        True
+        >>> isinstance(y, str)
+        False
+
 ```
 例子：
 1.  a = 'ABC'
@@ -108,4 +116,31 @@
 	4. 所有数，每5个取一个：
         >>> L[::5]
         [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95]
-
+#### 迭代：
+	1. 如果给定一个list或tuple，我们可以通过for循环来遍历这个list或tuple，这种遍历我们称为迭代（Iteration）
+	2. 默认情况下，dict迭代的是key。如果要迭代value，可以用for value in d.values()，如果要同时迭代key和value，可以用for k, v in d.items()。
+	3. 如何判断一个对象是可迭代对象呢？方法是通过collections模块的Iterable类型判断：
+	>>> from collections import Iterable
+	>>> isinstance('abc', Iterable) # str是否可迭代
+	True
+#### 列表生成器：
+	1. 生成[1x1, 2x2, 3x3, ..., 10x10]怎么做？
+	方法一：
+	>>> L = []
+	>>> for x in range(1, 11):
+	...    L.append(x * x)
+	...
+	>>> L
+	[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+	
+	方法二：
+	>>> [x * x for x in range(1, 11)]
+	[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+	
+	2. for循环后面还可以加上if判断，这样我们就可以筛选出仅偶数的平方：
+	>>> [x * x for x in range(1, 11) if x % 2 == 0]
+	[4, 16, 36, 64, 100]
+	
+	3. 还可以使用两层循环，可以生成全排列：
+	>>> [m + n for m in 'ABC' for n in 'XYZ']
+    ['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
