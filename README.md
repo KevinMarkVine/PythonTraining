@@ -144,3 +144,32 @@
 	3. 还可以使用两层循环，可以生成全排列：
 	>>> [m + n for m in 'ABC' for n in 'XYZ']
     ['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
+#### 生成器（generator）：
+
+	1. 生成器的意义：不知道访问的元素，如果贸然创建很大的列表，会造成巨大的空间浪费，因此，我们尝试在循环的过程中不断推算出后续的元素，这样就不必创建完整的list，从而节省大量的空间。在Python中，这种一边循环一边计算的机制，称为生成器
+	2. 因此，generator中保存的是算法
+	3. 定义generator的两种方法：
+		a. 只要把一个列表生成式的[]改成()，就创建了一个generator：
+		>>> L = [x * x for x in range(10)]
+		>>> L
+		[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+		>>> g = (x * x for x in range(10))
+		>>> g
+		b. 如果一个函数定义中包含yield关键字，那么这个函数就不再是一个普通函数，而是一个generator：
+	4. 函数和generator的区别：函数是顺序执行，遇到return语句或者最后一行函数语句就返回。而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
+	5. 用for循环调用generator时，发现拿不到generator的return语句的返回值。如果想要拿到返回值，必须捕获StopIteration错误，返回值包含在StopIteration的value中
+	
+#### 迭代器：
+	1. 所有能够用于for循环的对象：list、tuple、set、str、generator等都叫作可迭代对象，可以用isinstance判断一个对象是否是可迭代对象
+	2. 可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator。
+	3. isinstance可以判断对象是可迭代对象还是迭代器对象，取决于第二个参数，如：
+	可以使用isinstance()判断一个对象是否是Iterable对象：
+	>>> isinstance('abc', Iterable)
+	True
+	可以使用isinstance()判断一个对象是否是Iterator对象：
+	>>> isinstance('abc', Iterator)
+	False
+	4. 迭代器对象和可迭代对象的区别：能否被next（）函数调用并不断返回下一个值。可用iter（）转换
+	5. 为什么list、dict、str等数据类型不是Iterator？简单来说，因为他们不够大
+
+
